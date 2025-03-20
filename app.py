@@ -29,18 +29,14 @@ def divisao(num1, num2):
 def subtracao(num1, num2):
     return (f'Soma: {num1} - {num2} = {num1 - num2}')
 
-@app.route("parImpar:{n1}")
-def parImpar(n1):
-    if n1 % 2 == 0:
-        return True
-    else:
-        return False
-@app.route('/impar:{n1}')
-def impar(n1):
-    if n1 % 2 == 0:
-        return True
-    else:
-        return False
+@app.route('/par_ou_impar', methods=['GET'])
+def par_ou_impar():
+    try:
+        numero = int(request.args.get('numero'))
+        resultado = 'par' if numero % 2 == 0 else 'impar'
+        return f'resultado: {resultado}', 200
+    except:
+        return 'erro:parametro invalido', 400
 
 if __name__=='__main__':
   app.run(debug=True)
